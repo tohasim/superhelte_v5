@@ -10,9 +10,9 @@ public class Superhero {
     private List<String> superPowers;
     private Integer creationYear;
 
-    public Superhero(String name, String isHuman, String superheroName, List<String> superPowers, int creationYear) {
+    public Superhero(String name, String city, String superheroName, List<String> superPowers, int creationYear) {
         this.name = name;
-        this.city = isHuman;
+        this.city = city;
         this.superheroName = superheroName;
         this.superPowers = superPowers;
         this.creationYear = creationYear;

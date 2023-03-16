@@ -1,9 +1,9 @@
 package com.example.superheltev5.dto;
 
-public class heroCityDTO {
+public class HeroCityDTO {
     String hname, city;
 
-    public heroCityDTO(String hname, String city) {
+    public HeroCityDTO(String hname, String city) {
         this.hname = hname;
         this.city = city;
     }

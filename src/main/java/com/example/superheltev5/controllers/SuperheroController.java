@@ -27,19 +27,19 @@ public class SuperheroController {
 
     @GetMapping("/")
     public String getSuperheroes(Model model){
-        List<heroYearDTO> superheroList = superHeroRepository.getSuperheroesWithYear();
+        List<HeroYearDTO> superheroList = superHeroRepository.getSuperheroesWithYear();
         model.addAttribute("superheroList", superheroList);
         return "index";
     }
 
     @GetMapping("/superpowers/count")
     public ResponseEntity<?> getSuperheroesWithPowerCount(@RequestParam(required = false) String format){
-        List<heroPowerCountDTO> superheroList = superHeroRepository.getSuperheroesWithNumberOfPowers();
+        List<HeroPowerCountDTO> superheroList = superHeroRepository.getSuperheroesWithNumberOfPowers();
         //hname, rname, powercount
         if (format != null && format.equals("html")){
             StringBuilder sb = new StringBuilder();
             sb.append(String.format("<h1> %s </h1>", "SUPERHELTE:"));
-            for (heroPowerCountDTO superhero : superheroList) {
+            for (HeroPowerCountDTO superhero : superheroList) {
                 sb.append(String.format("<h2> %s:</h2>", superhero.gethName()));
                 sb.append("<ul>");
                 sb.append(String.format("<li> Ægte navn: %s </li>", superhero.getrName()));
@@ -55,12 +55,12 @@ public class SuperheroController {
 
     @GetMapping("/superpowers")
     public ResponseEntity<?> getSuperheroesWithPowers(@RequestParam(required = false) String format){
-        List<heroPowersDTO> superheroList = superHeroRepository.getSuperheroesWithPowers();
+        List<HeroPowersDTO> superheroList = superHeroRepository.getSuperheroesWithPowers();
         //hname, rname, powers
         if (format != null && format.equals("html")){
             StringBuilder sb = new StringBuilder();
             sb.append(String.format("<h1> %s </h1>", "SUPERHELTE:"));
-            for (heroPowersDTO superhero : superheroList) {
+            for (HeroPowersDTO superhero : superheroList) {
                 sb.append(String.format("<h2> %s:</h2>", superhero.getHname()));
                 sb.append("<ul>");
                 sb.append(String.format("<li> Ægte navn: %s </li>", superhero.getRname()));
@@ -76,12 +76,12 @@ public class SuperheroController {
 
     @GetMapping("/city")
     public ResponseEntity<?> getSuperheroesWithCity(@RequestParam(required = false) String format){
-        List<heroCityDTO> superheroList = superHeroRepository.getSuperheroesWithCity();
+        List<HeroCityDTO> superheroList = superHeroRepository.getSuperheroesWithCity();
         //hname, city
         if (format != null && format.equals("html")){
             StringBuilder sb = new StringBuilder();
             sb.append(String.format("<h1> %s </h1>", "SUPERHELTE:"));
-            for (heroCityDTO superhero : superheroList) {
+            for (HeroCityDTO superhero : superheroList) {
                 sb.append(String.format("<h2> %s:</h2>", superhero.getHname()));
                 sb.append("<ul>");
                 sb.append(String.format("<li> By: %s </li>", superhero.getCity()));
@@ -97,7 +97,7 @@ public class SuperheroController {
     @GetMapping("/{name}")
     public ResponseEntity<?> getSuperhero(@RequestParam(required = false) String format, @PathVariable String name){
         //hname, rname, creationyear
-        heroYearDTO superhero = superHeroRepository.searchSuperheroWithYear(name);
+        HeroYearDTO superhero = superHeroRepository.searchSuperheroWithYear(name);
         if (format != null && format.equals("html")) {
             StringBuilder sb = new StringBuilder();
             sb.append(String.format("<h2> %s:</h2>", superhero.gethName()));
@@ -115,7 +115,7 @@ public class SuperheroController {
     @GetMapping("/superpowers/count/{name}")
     public ResponseEntity<?> getSuperheroWithPowerCount(@RequestParam(required = false) String format, @PathVariable String name){
         //hname, rname, powercount
-        heroPowerCountDTO superhero = superHeroRepository.searchSuperheroWithNumberOfPowers(name);
+        HeroPowerCountDTO superhero = superHeroRepository.searchSuperheroWithNumberOfPowers(name);
         if (format != null && format.equals("html")) {
             StringBuilder sb = new StringBuilder();
             sb.append(String.format("<h2> %s:</h2>", superhero.gethName()));
@@ -133,7 +133,7 @@ public class SuperheroController {
     @GetMapping("/superpowers/{name}")
     public String getSuperheroWithPowers(Model model, @PathVariable String name){
         //hname, rname, powers
-        heroPowersDTO superhero = superHeroRepository.searchSuperheroWithPowers(name);
+        HeroPowersDTO superhero = superHeroRepository.searchSuperheroWithPowers(name);
         model.addAttribute("hero", superhero);
         return "heroSuperpowers";
     }
@@ -156,10 +156,21 @@ public class SuperheroController {
         return "addHeroForm_success";
     }
 
+    @GetMapping("/edit/{name}")
+    public String editHero(Model model, @PathVariable String name){
+        Superhero hero = superHeroRepository.getHero(name);
+        model.addAttribute("hero", hero);
+        List<String> cities = superHeroRepository.getCities();
+        List<String> powers = superHeroRepository.getPowers();
+        model.addAttribute("cities", cities);
+        model.addAttribute("powers", powers);
+        return "addHeroForm";
+    }
+
     @GetMapping("/city/{name}")
     public ResponseEntity<?> getSuperheroWithCity(@RequestParam(required = false) String format, @PathVariable String name){
         //hname, city
-        heroCityDTO superhero = superHeroRepository.searchSuperheroWithCity(name);
+        HeroCityDTO superhero = superHeroRepository.searchSuperheroWithCity(name);
         if (format != null && format.equals("html")) {
             StringBuilder sb = new StringBuilder();
             sb.append(String.format("<h2> %s:</h2>", superhero.getHname()));

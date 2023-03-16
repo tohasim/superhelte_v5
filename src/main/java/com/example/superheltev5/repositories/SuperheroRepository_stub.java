@@ -1,51 +1,51 @@
 package com.example.superheltev5.repositories;
 
-import com.example.superheltev5.dto.heroCityDTO;
-import com.example.superheltev5.dto.heroPowerCountDTO;
-import com.example.superheltev5.dto.heroPowersDTO;
-import com.example.superheltev5.dto.heroYearDTO;
+import com.example.superheltev5.dto.HeroCityDTO;
+import com.example.superheltev5.dto.HeroPowerCountDTO;
+import com.example.superheltev5.dto.HeroPowersDTO;
+import com.example.superheltev5.dto.HeroYearDTO;
 import com.example.superheltev5.model.Superhero;
 
 import java.util.List;
 
 public class SuperheroRepository_stub implements IRepository{
     @Override
-    public List<heroYearDTO> getSuperheroesWithYear() {
+    public List<HeroYearDTO> getSuperheroesWithYear() {
         return null;
     }
 
     @Override
-    public List<heroPowerCountDTO> getSuperheroesWithNumberOfPowers() {
+    public List<HeroPowerCountDTO> getSuperheroesWithNumberOfPowers() {
         return null;
     }
 
     @Override
-    public List<heroPowersDTO> getSuperheroesWithPowers() {
+    public List<HeroPowersDTO> getSuperheroesWithPowers() {
         return null;
     }
 
     @Override
-    public List<heroCityDTO> getSuperheroesWithCity() {
+    public List<HeroCityDTO> getSuperheroesWithCity() {
         return null;
     }
 
     @Override
-    public heroYearDTO searchSuperheroWithYear(String name) {
+    public HeroYearDTO searchSuperheroWithYear(String name) {
         return null;
     }
 
     @Override
-    public heroPowerCountDTO searchSuperheroWithNumberOfPowers(String name) {
+    public HeroPowerCountDTO searchSuperheroWithNumberOfPowers(String name) {
         return null;
     }
 
     @Override
-    public heroPowersDTO searchSuperheroWithPowers(String name) {
+    public HeroPowersDTO searchSuperheroWithPowers(String name) {
         return null;
     }
 
     @Override
-    public heroCityDTO searchSuperheroWithCity(String name) {
+    public HeroCityDTO searchSuperheroWithCity(String name) {
         return null;
     }
 
@@ -62,5 +62,10 @@ public class SuperheroRepository_stub implements IRepository{
     @Override
     public void postHero(Superhero hero) {
 
+    }
+
+    @Override
+    public Superhero getHero(String name) {
+        return null;
     }
 }

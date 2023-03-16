@@ -2,11 +2,11 @@ package com.example.superheltev5.dto;
 
 import java.util.List;
 
-public class heroPowersDTO {
+public class HeroPowersDTO {
     String hname, rname;
     List<String> powers;
 
-    public heroPowersDTO(String hname, String rname, List<String> powers) {
+    public HeroPowersDTO(String hname, String rname, List<String> powers) {
         this.hname = hname;
         this.rname = rname;
         this.powers = powers;

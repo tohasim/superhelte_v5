@@ -1,10 +1,10 @@
 package com.example.superheltev5.dto;
 
-public class heroYearDTO {
+public class HeroYearDTO {
     String hName, rName;
     int creationYear;
 
-    public heroYearDTO(String hName, String rName, int creationYear) {
+    public HeroYearDTO(String hName, String rName, int creationYear) {
         this.hName = hName;
         this.rName = rName;
         this.creationYear = creationYear;

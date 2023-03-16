@@ -6,19 +6,21 @@ import com.example.superheltev5.model.Superhero;
 import java.util.List;
 
 public interface IRepository {
-    List<heroYearDTO> getSuperheroesWithYear();
-    List<heroPowerCountDTO> getSuperheroesWithNumberOfPowers();
-    List<heroPowersDTO> getSuperheroesWithPowers();
-    List<heroCityDTO> getSuperheroesWithCity();
+    List<HeroYearDTO> getSuperheroesWithYear();
+    List<HeroPowerCountDTO> getSuperheroesWithNumberOfPowers();
+    List<HeroPowersDTO> getSuperheroesWithPowers();
+    List<HeroCityDTO> getSuperheroesWithCity();
 
-    heroYearDTO searchSuperheroWithYear(String name);
-    heroPowerCountDTO searchSuperheroWithNumberOfPowers(String name);
-    heroPowersDTO searchSuperheroWithPowers(String name);
-    heroCityDTO searchSuperheroWithCity(String name);
+    HeroYearDTO searchSuperheroWithYear(String name);
+    HeroPowerCountDTO searchSuperheroWithNumberOfPowers(String name);
+    HeroPowersDTO searchSuperheroWithPowers(String name);
+    HeroCityDTO searchSuperheroWithCity(String name);
 
     List<String> getCities();
 
     List<String> getPowers();
 
     void postHero(Superhero hero);
+
+    Superhero getHero(String name);
 }
