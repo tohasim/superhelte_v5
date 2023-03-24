@@ -1,10 +1,10 @@
 package com.example.superheltev5.dto;
 
-public class HeroPowerCountDTO {
+public class heroPowerCountDTO {
     String hName, rName;
     int numberOfPowers;
 
-    public HeroPowerCountDTO(String hName, String rName, int numberOfPowers) {
+    public heroPowerCountDTO(String hName, String rName, int numberOfPowers) {
         this.hName = hName;
         this.rName = rName;
         this.numberOfPowers = numberOfPowers;

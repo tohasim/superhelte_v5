@@ -14,11 +14,11 @@ public class SuperheroRepository_DB implements IRepository {
     public List<HeroYearDTO> getSuperheroesWithYear() {
         List<HeroYearDTO> heroes = new ArrayList<>();
         try {Connection con = DBManager.getConnection();
-            String query = "SELECT hname, rname, creationyear FROM SUPERHERO";
+            String query = "SELECT hero_id, hname, rname, creationyear FROM SUPERHERO";
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                heroes.add(new HeroYearDTO(rs.getString(1), rs.getString(2), rs.getInt(3)));
+                heroes.add(new HeroYearDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -27,14 +27,14 @@ public class SuperheroRepository_DB implements IRepository {
     }
 
     @Override
-    public List<HeroPowerCountDTO> getSuperheroesWithNumberOfPowers() {
-        List<HeroPowerCountDTO> heroes = new ArrayList<>();
+    public List<heroPowerCountDTO> getSuperheroesWithNumberOfPowers() {
+        List<heroPowerCountDTO> heroes = new ArrayList<>();
         try {Connection con = DBManager.getConnection();
-            String query = "SELECT hname, rname, count(*) FROM superhero INNER JOIN superhero_powers using (hero_id) INNER JOIN superpower USING (power_id) GROUP BY (hero_id);";
+            String query = "SELECT hname, rname, count(*) FROM SUPERHERO INNER JOIN SUPERHERO_POWERS using (hero_id) INNER JOIN SUPERPOWER USING (power_id) GROUP BY (hero_id);";
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                heroes.add(new HeroPowerCountDTO(rs.getString(1), rs.getString(2), rs.getInt(3)));
+                heroes.add(new heroPowerCountDTO(rs.getString(1), rs.getString(2), rs.getInt(3)));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -47,19 +47,19 @@ public class SuperheroRepository_DB implements IRepository {
         boolean heroAlreadyPresent;
         List<HeroPowersDTO> heroes = new ArrayList<>();
         try {Connection con = DBManager.getConnection();
-            String query = "SELECT hname, rname, pname FROM superhero INNER JOIN superhero_powers using (hero_id) INNER JOIN superpower USING (power_id)";
+            String query = "SELECT hero_id, hname, rname, pname FROM SUPERHERO INNER JOIN SUPERHERO_POWERS using (hero_id) INNER JOIN SUPERPOWER USING (power_id)";
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 heroAlreadyPresent = false;
                 for (HeroPowersDTO hero : heroes) {
-                    if (hero.getHname().equals(rs.getString(1))){
-                        hero.addPower(rs.getString(3));
+                    if (hero.getHname().equals(rs.getString(2))){
+                        hero.addPower(rs.getString(4));
                         heroAlreadyPresent = true;
                     }
                 }
                 if (!heroAlreadyPresent)
-                    heroes.add(new HeroPowersDTO(rs.getString(1), rs.getString(2), new ArrayList<>(List.of(rs.getString(3)))));
+                    heroes.add(new HeroPowersDTO(rs.getInt(1), rs.getString(2), rs.getString(3), new ArrayList<>(List.of(rs.getString(4)))));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -84,15 +84,15 @@ public class SuperheroRepository_DB implements IRepository {
     }
 
     @Override
-    public HeroYearDTO searchSuperheroWithYear(String name) {
+    public HeroYearDTO searchSuperheroWithYear(int id) {
         HeroYearDTO hero = null;
         try {Connection con = DBManager.getConnection();
-            String query = "SELECT hname, rname, creationyear FROM SUPERHERO WHERE hname = ?";
+            String query = "SELECT hero_id, hname, rname, creationyear FROM SUPERHERO WHERE hero_id = ?";
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, name);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                hero = new HeroYearDTO(rs.getString(1), rs.getString(2), rs.getInt(3));
+                hero = new HeroYearDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -101,15 +101,15 @@ public class SuperheroRepository_DB implements IRepository {
     }
 
     @Override
-    public HeroPowerCountDTO searchSuperheroWithNumberOfPowers(String name) {
-        HeroPowerCountDTO hero = null;
+    public heroPowerCountDTO searchSuperheroWithNumberOfPowers(int id) {
+        heroPowerCountDTO hero = null;
         try {Connection con = DBManager.getConnection();
-            String query = "SELECT hname, rname, count(*) FROM superhero INNER JOIN superhero_powers using (hero_id) INNER JOIN superpower USING (power_id) WHERE hname = ? GROUP BY (hero_id);";
+            String query = "SELECT hname, rname, count(*) FROM SUPERHERO INNER JOIN SUPERHERO_POWERS using (hero_id) INNER JOIN SUPERPOWER USING (power_id) WHERE hero_id = ? GROUP BY (hero_id);";
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, name);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                hero = new HeroPowerCountDTO(rs.getString(1), rs.getString(2), rs.getInt(3));
+                hero = new heroPowerCountDTO(rs.getString(1), rs.getString(2), rs.getInt(3));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -118,19 +118,19 @@ public class SuperheroRepository_DB implements IRepository {
     }
 
     @Override
-    public HeroPowersDTO searchSuperheroWithPowers(String name) {
+    public HeroPowersDTO searchSuperheroWithPowers(int id) {
         HeroPowersDTO hero = null;
         try {Connection con = DBManager.getConnection();
-            String query = "SELECT hname, rname, pname FROM superhero INNER JOIN superhero_powers using (hero_id) INNER JOIN superpower USING (power_id) WHERE hname = ?;";
+            String query = "SELECT hero_id, hname, rname, pname FROM SUPERHERO INNER JOIN SUPERHERO_POWERS using (hero_id) INNER JOIN SUPERPOWER USING (power_id) WHERE hero_id = ?;";
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, name);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                hero = new HeroPowersDTO(rs.getString(1), rs.getString(2), new ArrayList<>(List.of(rs.getString(3))));
+                hero = new HeroPowersDTO(rs.getInt(1), rs.getString(2), rs.getString(3), new ArrayList<>(List.of(rs.getString(4))));
                 boolean shouldCheck = true;
                 while(shouldCheck && rs.next()){
-                    if (rs.getString(1).equals(hero.getHname())){
-                        hero.addPower(rs.getString(3));
+                    if (rs.getString(2).equals(hero.getHname())){
+                        hero.addPower(rs.getString(4));
                     }
                     else shouldCheck = false;
                 }
@@ -142,12 +142,12 @@ public class SuperheroRepository_DB implements IRepository {
     }
 
     @Override
-    public HeroCityDTO searchSuperheroWithCity(String name) {
+    public HeroCityDTO searchSuperheroWithCity(int id) {
         HeroCityDTO hero = null;
         try {Connection con = DBManager.getConnection();
-            String query = "SELECT hname, cname FROM SUPERHERO INNER JOIN CITY USING(CITY_ID) WHERE hname = ?";
+            String query = "SELECT hname, cname FROM SUPERHERO INNER JOIN CITY USING(CITY_ID) WHERE hero_id = ?";
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, name);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 hero = new HeroCityDTO(rs.getString(1), rs.getString(2));
@@ -201,7 +201,7 @@ public class SuperheroRepository_DB implements IRepository {
             List<Integer> powerIDs = new ArrayList<>();
 
             // find city_id
-            String SQL1 = "select city_id from city where cname = ?;";
+            String SQL1 = "select city_id from CITY where cname = ?;";
             PreparedStatement pstmt = con.prepareStatement(SQL1);
             pstmt.setString(1, hero.getCity());
             ResultSet rs = pstmt.executeQuery();
@@ -210,7 +210,7 @@ public class SuperheroRepository_DB implements IRepository {
             }
 
             // insert row in superhero table
-            String SQL2 = "insert into superhero (hname, rname, creationyear, city_id) " +
+            String SQL2 = "insert into SUPERHERO (hname, rname, creationyear, city_id) " +
                     "values(?, ?, ?, ?);";
             pstmt = con.prepareStatement(SQL2, Statement.RETURN_GENERATED_KEYS); // return autoincremented key
             pstmt.setString(1, hero.getSuperheroName());
@@ -225,7 +225,7 @@ public class SuperheroRepository_DB implements IRepository {
             }
 
             // find power_ids
-            String SQL3 = "select power_id from superpower where pname = ?;";
+            String SQL3 = "select power_id from SUPERPOWER where pname = ?;";
             pstmt = con.prepareStatement(SQL3);
             for (String power : hero.getSuperPowers()) {
                 pstmt.setString(1, power);
@@ -236,7 +236,7 @@ public class SuperheroRepository_DB implements IRepository {
             }
 
             // insert entries in superhero_powers join table
-            String SQL4 = "insert into superhero_powers values (?,?);";
+            String SQL4 = "insert into SUPERHERO_POWERS values (?,?);";
             pstmt = con.prepareStatement(SQL4);
             for (int i = 0; i < powerIDs.size(); i++) {
                 pstmt.setInt(1, heroId);
@@ -248,14 +248,53 @@ public class SuperheroRepository_DB implements IRepository {
         }
     }
 
+    //
     @Override
-    public Superhero getHero(String name) {
-        HeroCityDTO heroCityDTO = searchSuperheroWithCity(name);
-        HeroPowersDTO heroPowersDTO = searchSuperheroWithPowers(name);
-        HeroYearDTO heroYearDTO = searchSuperheroWithYear(name);
-        Superhero hero = new Superhero(heroYearDTO.getrName(),
-                heroCityDTO.getCity(), heroYearDTO.gethName(),
-                heroPowersDTO.getPowers(), heroYearDTO.getCreationYear());
-        return hero;
+    public void updateHero(int id, Superhero hero) {
+        try {
+            int cityID = 0;
+            int powerID = 0;
+
+            Connection con = DBManager.getConnection();
+
+            String query1 = "select city_id from CITY where cname = ?;";
+            PreparedStatement pstmt = con.prepareStatement(query1);
+            pstmt.setString(1, hero.getCity());
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                cityID = rs.getInt("city_id");
+            }
+
+
+            int i = 0;
+            String query = "UPDATE SUPERHERO SET hname = ?, rname = ?, creationyear = ?, city_id = ? WHERE hero_id = ?";
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, hero.getSuperheroName());
+            pstmt.setString(2, hero.getName());
+            pstmt.setInt(3, hero.getCreationYear());
+            pstmt.setInt(4, cityID);
+            pstmt.setInt(5, id);
+            System.out.println("FROM UPDATE HERO: " + hero);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    @Override
+    public Superhero getSuperHero(int id) {
+        HeroPowersDTO heroPowersDTO = searchSuperheroWithPowers(id);
+        HeroCityDTO heroCityDTO = searchSuperheroWithCity(id);
+        HeroYearDTO heroYearDTO = searchSuperheroWithYear(id);
+
+        int heroID = id;
+        String rname = heroPowersDTO.getRname();
+        String city = heroCityDTO.getCity();
+        String superheroName = heroYearDTO.gethName();
+        List<String> powers = heroPowersDTO.getPowers();
+        int year = heroYearDTO.getCreationYear();
+
+        return new Superhero(heroID, rname, city, superheroName, powers, year);
+    }
+
 }

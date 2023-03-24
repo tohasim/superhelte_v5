@@ -4,13 +4,15 @@ package com.example.superheltev5.model;
 import java.util.List;
 
 public class Superhero {
+    private int heroID;
     private String city;
     private String name;
     private String superheroName;
     private List<String> superPowers;
-    private Integer creationYear;
+    private int creationYear;
 
-    public Superhero(String name, String city, String superheroName, List<String> superPowers, int creationYear) {
+    public Superhero(int heroID, String name, String city, String superheroName, List<String> superPowers, int creationYear) {
+        this.heroID = heroID;
         this.name = name;
         this.city = city;
         this.superheroName = superheroName;
@@ -58,7 +60,7 @@ public class Superhero {
         superPowers.add(superpower);
     }
 
-    public Integer getCreationYear() {
+    public int getCreationYear() {
         return creationYear;
     }
 
@@ -76,4 +78,9 @@ public class Superhero {
                 ", city='" + city + '\'' +
                 '}';
     }
+
+    public int getHeroID() {
+        return heroID;
+    }
+
 }

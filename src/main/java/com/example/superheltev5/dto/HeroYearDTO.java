@@ -2,12 +2,13 @@ package com.example.superheltev5.dto;
 
 public class HeroYearDTO {
     String hName, rName;
-    int creationYear;
+    int creationYear, heroID;
 
-    public HeroYearDTO(String hName, String rName, int creationYear) {
+    public HeroYearDTO(int heroID, String hName, String rName, int creationYear) {
         this.hName = hName;
         this.rName = rName;
         this.creationYear = creationYear;
+        this.heroID = heroID;
     }
 
     public String gethName() {
@@ -20,5 +21,9 @@ public class HeroYearDTO {
 
     public int getCreationYear() {
         return creationYear;
+    }
+
+    public int getHeroID() {
+        return heroID;
     }
 }

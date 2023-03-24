@@ -4,12 +4,12 @@
 <head>
     <link th:href="@{/main.css}" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>Add hero</title>
+    <title th:text="${hero.getSuperheroName()} + ' | Edit'"/>
 </head>
 <body>
-<h1>Tilføj superhelt</h1>
+<h1>Edit superhero</h1>
 
-<form action="#" th:action="@{/superheroes/add}" method="post" th:object="${hero}">
+<form action="#" th:action="@{/superheroes/edit/{id}(id = ${hero.heroID})}" method="post" th:object="${hero}">
     <label>Hero name:</label>
     <input type="text" th:field="*{superheroName}" />
     <br/>
@@ -29,10 +29,10 @@
     <br/>
 
     <label>Powers:</label><br/>
-        <span th:each="power : ${powers}">
+    <span th:each="power : ${powers}">
             <input type="checkbox" th:field="*{superPowers}" th:value="${power}" th:text="${power}" />
         </span>
-    <button type="submit">Add superhero</button>
+    <button type="submit">Update superhero</button>
 </form>
 </body>
 </html>

@@ -18,11 +18,12 @@
             <td th:text="*{gethName()}"></td>
             <td th:text="*{getrName()}"></td>
             <td th:text="*{getCreationYear()}"></td>
-            <td><a th:href="@{http://localhost:8080/superheroes/superpowers/{name}(name=*{gethName()})}"><button>Powers</button></a></td>
+            <td><a th:href="@{http://localhost:8080/superheroes/superpowers/{id}(id=*{heroID})}"><button>Powers</button></a></td>
+            <td><a th:href="@{http://localhost:8080/superheroes/edit/{id}(id=*{heroID})}"><button>Edit</button></a></td>
         </tr>
     </span>
 </table>
 <br/>
-<a href="http://localhost:8080/superheroes/add"><button>Add Superhero</button></a>
+<a href="http://localhost:8080/superheroes/add"><button>Tilføj Superhelt</button></a>
 </body>
 </html>

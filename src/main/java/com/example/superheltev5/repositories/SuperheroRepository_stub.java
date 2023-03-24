@@ -1,7 +1,7 @@
 package com.example.superheltev5.repositories;
 
 import com.example.superheltev5.dto.HeroCityDTO;
-import com.example.superheltev5.dto.HeroPowerCountDTO;
+import com.example.superheltev5.dto.heroPowerCountDTO;
 import com.example.superheltev5.dto.HeroPowersDTO;
 import com.example.superheltev5.dto.HeroYearDTO;
 import com.example.superheltev5.model.Superhero;
@@ -15,7 +15,7 @@ public class SuperheroRepository_stub implements IRepository{
     }
 
     @Override
-    public List<HeroPowerCountDTO> getSuperheroesWithNumberOfPowers() {
+    public List<heroPowerCountDTO> getSuperheroesWithNumberOfPowers() {
         return null;
     }
 
@@ -30,22 +30,22 @@ public class SuperheroRepository_stub implements IRepository{
     }
 
     @Override
-    public HeroYearDTO searchSuperheroWithYear(String name) {
+    public HeroYearDTO searchSuperheroWithYear(int id) {
         return null;
     }
 
     @Override
-    public HeroPowerCountDTO searchSuperheroWithNumberOfPowers(String name) {
+    public heroPowerCountDTO searchSuperheroWithNumberOfPowers(int id) {
         return null;
     }
 
     @Override
-    public HeroPowersDTO searchSuperheroWithPowers(String name) {
+    public HeroPowersDTO searchSuperheroWithPowers(int id) {
         return null;
     }
 
     @Override
-    public HeroCityDTO searchSuperheroWithCity(String name) {
+    public HeroCityDTO searchSuperheroWithCity(int id) {
         return null;
     }
 
@@ -65,7 +65,12 @@ public class SuperheroRepository_stub implements IRepository{
     }
 
     @Override
-    public Superhero getHero(String name) {
+    public Superhero getSuperHero(int id) {
         return null;
+    }
+
+    @Override
+    public void updateHero(int id, Superhero hero) {
+
     }
 }

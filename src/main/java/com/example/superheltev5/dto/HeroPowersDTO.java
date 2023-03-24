@@ -5,8 +5,10 @@ import java.util.List;
 public class HeroPowersDTO {
     String hname, rname;
     List<String> powers;
+    int ID;
 
-    public HeroPowersDTO(String hname, String rname, List<String> powers) {
+    public HeroPowersDTO(int ID, String hname, String rname, List<String> powers) {
+        this.ID  = ID;
         this.hname = hname;
         this.rname = rname;
         this.powers = powers;
@@ -26,5 +28,9 @@ public class HeroPowersDTO {
 
     public void addPower(String power) {
         powers.add(power);
+    }
+
+    public int getID() {
+        return ID;
     }
 }

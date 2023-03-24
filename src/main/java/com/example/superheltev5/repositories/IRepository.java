@@ -7,20 +7,21 @@ import java.util.List;
 
 public interface IRepository {
     List<HeroYearDTO> getSuperheroesWithYear();
-    List<HeroPowerCountDTO> getSuperheroesWithNumberOfPowers();
+    List<heroPowerCountDTO> getSuperheroesWithNumberOfPowers();
     List<HeroPowersDTO> getSuperheroesWithPowers();
     List<HeroCityDTO> getSuperheroesWithCity();
 
-    HeroYearDTO searchSuperheroWithYear(String name);
-    HeroPowerCountDTO searchSuperheroWithNumberOfPowers(String name);
-    HeroPowersDTO searchSuperheroWithPowers(String name);
-    HeroCityDTO searchSuperheroWithCity(String name);
+    HeroYearDTO searchSuperheroWithYear(int id);
+    heroPowerCountDTO searchSuperheroWithNumberOfPowers(int id);
+    HeroPowersDTO searchSuperheroWithPowers(int id);
+    HeroCityDTO searchSuperheroWithCity(int id);
 
     List<String> getCities();
 
     List<String> getPowers();
 
     void postHero(Superhero hero);
+    Superhero getSuperHero(int id);
 
-    Superhero getHero(String name);
+    void updateHero(int id, Superhero hero);
 }
